@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Name: MyString
+  Initiative: 1
+  HP_Max: 1
+  HP: 1
+  Temp_HP: 1
+  AC: 1
+  Str_Save: 1
+  Dex_Save: 1
+  Con_Save: 1
+  Wis_save: 1
+  Int_save: 1
+  Cha_Save: 1
+  Death_Save_Pass: 1
+  Death_Save_Fail: 1
+
+two:
+  Name: MyString
+  Initiative: 1
+  HP_Max: 1
+  HP: 1
+  Temp_HP: 1
+  AC: 1
+  Str_Save: 1
+  Dex_Save: 1
+  Con_Save: 1
+  Wis_save: 1
+  Int_save: 1
+  Cha_Save: 1
+  Death_Save_Pass: 1
+  Death_Save_Fail: 1
