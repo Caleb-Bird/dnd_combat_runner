@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :combatants
-  get 'home/combatant'
+  get 'home/combatantDirectory'
   get 'home/combatSetup'
   get 'home/battlefield'
   root 'home#index'
