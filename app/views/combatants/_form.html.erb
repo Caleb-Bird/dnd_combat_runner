@@ -1,0 +1,92 @@
+<%= form_with(model: combatant) do |form| %>
+  <% if combatant.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(combatant.errors.count, "error") %> prohibited this combatant from being saved:</h2>
+
+      <ul>
+        <% combatant.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :Name, style: "display: block" %>
+    <%= form.text_field :Name %>
+  </div>
+
+  <div>
+    <%= form.label :Initiative, style: "display: block" %>
+    <%= form.number_field :Initiative %>
+  </div>
+
+  <div>
+    <%= form.label :HP_Max, style: "display: block" %>
+    <%= form.number_field :HP_Max %>
+  </div>
+
+  <div>
+    <%= form.label :HP, style: "display: block" %>
+    <%= form.number_field :HP %>
+  </div>
+
+  <div>
+    <%= form.label :Temp_HP, style: "display: block" %>
+    <%= form.number_field :Temp_HP %>
+  </div>
+
+  <div>
+    <%= form.label :AC, style: "display: block" %>
+    <%= form.number_field :AC %>
+  </div>
+
+  <div>
+    <%= form.label :Str_Save, style: "display: block" %>
+    <%= form.number_field :Str_Save %>
+  </div>
+
+  <div>
+    <%= form.label :Dex_Save, style: "display: block" %>
+    <%= form.number_field :Dex_Save %>
+  </div>
+
+  <div>
+    <%= form.label :Con_Save, style: "display: block" %>
+    <%= form.number_field :Con_Save %>
+  </div>
+
+  <div>
+    <%= form.label :Int_Save, style: "display: block" %>
+    <%= form.number_field :Int_Save %>
+  </div>
+
+  <div>
+    <%= form.label :Wis_Save, style: "display: block" %>
+    <%= form.number_field :Wis_Save %>
+  </div>
+
+  <div>
+    <%= form.label :Cha_Save, style: "display: block" %>
+    <%= form.number_field :Cha_Save %>
+  </div>
+
+  <div>
+    <%= form.label :Death_Save_Pass, style: "display: block" %>
+    <%= form.number_field :Death_Save_Pass %>
+  </div>
+
+  <div>
+    <%= form.label :Death_Save_Fail, style: "display: block" %>
+    <%= form.number_field :Death_Save_Fail %>
+  </div>
+
+  <div>
+    <%= form.label :Dead, style: "display: block" %>
+    <%= form.check_box :Dead %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
