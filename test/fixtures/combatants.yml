@@ -10,12 +10,11 @@ one:
   Str_Save: 1
   Dex_Save: 1
   Con_Save: 1
-  Int_Save: 1
-  Wis_Save: 1
+  Wis_save: 1
+  Int_save: 1
   Cha_Save: 1
   Death_Save_Pass: 1
   Death_Save_Fail: 1
-  Dead: false
 
 two:
   Name: MyString
@@ -27,9 +26,8 @@ two:
   Str_Save: 1
   Dex_Save: 1
   Con_Save: 1
-  Int_Save: 1
-  Wis_Save: 1
+  Wis_save: 1
+  Int_save: 1
   Cha_Save: 1
   Death_Save_Pass: 1
   Death_Save_Fail: 1
-  Dead: false
