@@ -1,14 +1,33 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Combatants</h1>
-
-<div id="combatants">
+<div>hello2</div>
+<div class="table-responsive" id="combatants">
+  <table>
+    <thead>
+    <th><strong>Name:</strong></th>
+    <th><strong>Initiative:</strong></th>
+    <th><strong>Hp max:</strong></th>
+    <th><strong>Hp</strong></th>
+    <th><strong>Temp hp:</strong></th>
+    <th><strong>Ac</strong></th>
+    <th><strong>Str save:</strong></th>
+    <th><strong>Dex save:</strong></th>
+    <th><strong>Con save:</strong></th>
+    <th><strong>Int save:</strong></th>
+    <th><strong>Wis save:</strong></th>
+    <th><strong>Cha save:</strong></th>
+    <th><strong>Death save pass:</strong></th>
+    <th><strong>Death save fail:</strong></th>
+    <th><strong>Dead</strong></th>
+    </th>
   <% @combatants.each do |combatant| %>
     <%= render combatant %>
     <p>
       <%= link_to "Show this combatant", combatant %>
     </p>
   <% end %>
+    </table>
 </div>
 
 <%= link_to "New combatant", new_combatant_path %>
