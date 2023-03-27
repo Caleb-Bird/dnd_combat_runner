@@ -1,0 +1,28 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Combatants</h1>
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Brief Description</th>
+      <th scope="col">Level or CR</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% @combatants.each do |combatant| %>
+      <tr>
+        <td><%= link_to combatant.formated_name, "/combatants/#{combatant.id}" %></td>
+        <td>brief description</td>
+        <td>level or CR </td>
+        <td>button to add to combat</td>
+      </tr>
+    <% end %>  
+  </tbody>
+</table>
+
+<%= link_to "New Combatant", new_combatant_path, class:"btn btn-outline-secondary"%>
+
+
+

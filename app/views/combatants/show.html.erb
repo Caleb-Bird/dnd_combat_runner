@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+<br>
+<%= render "form", combatant: @combatant %>
+
+<br>
+<div>
+  <%= link_to "Back to combatants", combatants_path, class: "btn btn-outline-secondary" %>
+<br></br>
+  <%= button_to "Destroy this combatant", @combatant, method: :delete, class: "btn btn-outline-secondary" %>
+</div>
