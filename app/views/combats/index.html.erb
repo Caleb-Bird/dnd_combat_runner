@@ -3,12 +3,28 @@
 <h1>Combats</h1>
 
 <div id="combats">
-  <% @combats.each do |combat| %>
-    <%= render combat %>
-    <p>
-      <%= link_to "Show this combat", combat %>
-    </p>
-  <% end %>
-</div>
 
-<%= link_to "New combat", new_combat_path %>
+<table class="table table-hover table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Brief Description</th>
+      
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @combats.each do |combat| %>
+      <tr>
+        <td><%= link_to combat.combat_name, combat %></td>
+        <td></td>
+        <td><%= button_to "Destroy", combat, method: :delete, class: "btn btn-outline-secondary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<%= link_to "New combat", new_combat_path, class:"btn btn-outline-secondary" %>
+
+
+
