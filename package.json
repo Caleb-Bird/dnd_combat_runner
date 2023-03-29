@@ -1,0 +1,11 @@
+{
+  "name": "dnd_combat_runner",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jarekbird/dnd_combat_runner.git",
+  "author": "caleb bird <caleb.bird123@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@prettier/plugin-ruby": "^3.2.2"
+  }
+}

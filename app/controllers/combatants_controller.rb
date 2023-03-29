@@ -67,9 +67,13 @@ class CombatantsController < ApplicationController
     def combatant_params
       params.require(:combatant).permit(
         :name,
+        :description,
+        :cr_or_level,
         :maximum_hp,
         :temporary_hp,
-        :hp,:armor_class,
+        :hp,
+        :armor_class,
+        :initiative,
         :spell_dc,
         :strength_save,
         :dexterity_save,

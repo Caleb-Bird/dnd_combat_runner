@@ -10,15 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_24_225009) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_29_155859) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "combatants", force: :cascade do |t|
     t.string "name"
     t.integer "maximum_hp"
-    t.integer "temporary_hp"
-    t.integer "hp"
     t.integer "armor_class"
     t.integer "spell_dc"
     t.integer "strength_save"
@@ -27,6 +25,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_24_225009) do
     t.integer "intellect_save"
     t.integer "wisdom_save"
     t.integer "charisma_save"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "initiative"
+    t.string "description"
+    t.integer "cr_or_level"
+  end
+
+  create_table "combats", force: :cascade do |t|
+    t.string "combat_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
