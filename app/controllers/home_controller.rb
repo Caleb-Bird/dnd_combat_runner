@@ -9,5 +9,5 @@ class HomeController < ApplicationController
   end
 
   def combatantDirectory
-  end  
+  end
 end
