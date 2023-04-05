@@ -9,30 +9,30 @@
   <div class="card-header">
     <h3>Sign up</h3>
   </div>
-  <br>
   <div class="card-body">
 
-  <div class="field form-group col-sm-8">
-    <%= f.email_field :email,class:"form-control", placeholder:"Email", autofocus: true, autocomplete: "email" %>
-  </div>
-
-<br>
-  <div class="field form-group col-sm-8">
-   
-    <%= f.password_field :password,class:"form-control", placeholder:"Password", autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
+    <div class="field form-group col-sm-8">
+      <%= f.email_field :email,class:"form-control", placeholder:"Email", autofocus: true, autocomplete: "email" %>
+    </div>
+    <br>
+    
+    <div class="field form-group col-sm-8">
+      <%= f.password_field :password,class:"form-control", placeholder:"Password", autocomplete: "new-password" %>
+      <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>
        <% end %>
-  <br>
-  </div>
-  <div class="field form-group col-sm-8">
-    <%= f.password_field :password_confirmation,class:"form-control", placeholder:"Passsword Confirmation", autocomplete: "new-password" %>
-  </div>
+    </div>
+    <br>
 
-<br>
-  <div class="actions">
-    <%= f.submit "Sign up", class: "btn btn-secondary"  %>
-  </div>
+    <div class="field form-group col-sm-8">
+      <%= f.password_field :password_confirmation,class:"form-control", placeholder:"Passsword Confirmation", autocomplete: "new-password" %>
+    </div>
+    <br>
+
+    <div class="actions">
+      <%= f.submit "Sign up",class: "btn btn-secondary"  %>
+    </div>
+
   </div>
 </div>
 <br>
