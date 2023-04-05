@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_31_072402) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_05_155504) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,6 +30,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_31_072402) do
     t.integer "initiative"
     t.string "description"
     t.integer "cr_or_level"
+  end
+
+  create_table "combatants_in_combats", force: :cascade do |t|
+    t.integer "working_initiative"
+    t.integer "current_hp"
+    t.integer "temporary_hp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "combats", force: :cascade do |t|
