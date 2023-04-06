@@ -120,6 +120,14 @@
       <%= form.number_field :charisma_save, class: "form-control", step: 0.5 %>
     </div>
   </div>
+  <div class="row g-3 align-items-center">
+    <div class="col-sm-3">
+      <%= form.label :user_id%>
+    </div> 
+    <div class="col-sm-2">
+      <%= form.number_field :user_id, class: "form-control", step: 0.5, value: current_user.id %>
+    </div>
+  </div>
 <br>
   <div class="row g-3 align-items-center">
     <div class="col-sm-3">
