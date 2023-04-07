@@ -1,7 +1,7 @@
 class CombatantsController < ApplicationController
   before_action :set_combatant, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  #before_action :correct_user, only: [:edit, :update, :destroy] I THINK THIS IS CAUSING MY ERRORS
   # GET /combatants or /combatants.json
   def index
     @combatants = Combatant.all
@@ -13,7 +13,8 @@ class CombatantsController < ApplicationController
 
   # GET /combatants/new
   def new
-    @combatant = Combatant.new
+   @combatant = Combatant.new
+    #@combatant = current_user.combatants.build     this potential change is giving me errors "undefined method"
   end
 
   # GET /combatants/1/edit
@@ -22,8 +23,8 @@ class CombatantsController < ApplicationController
 
   # POST /combatants or /combatants.json
   def create 
-    @combatant = Combatant.new(combatant_params)
-
+   @combatant = Combatant.new(combatant_params)
+    #@combatant = current_user.combatants.build(combatant_params)    
     respond_to do |format|
       if @combatant.save
         format.html { redirect_to combatant_url(@combatant), notice: "Combatant was successfully created." }
@@ -58,10 +59,10 @@ class CombatantsController < ApplicationController
     end
   end
 
-    def correct_user
-      @combatant = current_user.combatants.find_by(id: params[:id])
-      redirect_to combatants_path, notice: "Not Autherized to Edit This Combatant" if @combatant.nil?
-    end
+    #def correct_user                                                       this is giving me erros not sure as well
+      #@combatant = current_user.combatants.find_by(id: params[:id])
+      #redirect_to combatants_path, notice: "Not Autherized to Edit This Combatant" if @combatant.nil?
+    #end
 
 
   private
