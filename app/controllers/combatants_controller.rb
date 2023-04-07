@@ -1,6 +1,7 @@
 class CombatantsController < ApplicationController
   before_action :set_combatant, only: %i[ show edit update destroy ]
-
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   # GET /combatants or /combatants.json
   def index
     @combatants = Combatant.all
@@ -57,6 +58,12 @@ class CombatantsController < ApplicationController
     end
   end
 
+    def correct_user
+      @combatant = current_user.combatants.find_by(id: params[:id])
+      redirect_to combatants_path, notice: "Not Autherized to Edit This Combatant" if @combatant.nil?
+    end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_combatant
@@ -83,7 +90,8 @@ class CombatantsController < ApplicationController
         :charisma_save,
         :death_save_failed,
         :death_save_passed,
-        :dead
+        :dead,
+        :user_id
       )
     end
 end
