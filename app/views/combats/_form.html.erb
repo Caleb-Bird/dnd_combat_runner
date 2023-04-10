@@ -12,25 +12,133 @@
   <% end %>
 
   <div class="row g-3 align-items-center">
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <%= form.label :combat_name%>
     </div> 
-    <div class="col-sm-2">
+    <div class="col-sm-4">
       <%= form.text_field :combat_name, class: "form-control" %>
     </div>  
   </div>
 <br>
  <div class="row g-3 align-items-center">
     <div class="col-sm-3">
-      <%= form.label :description%>
+      <%= form.label :description %>
     </div> 
-    <div class="col-sm-2">
-      <%= form.text_field :description, class: "form-control" %>
-    </div>  
   </div>
-  
+  <div class="row g-3 align-items-center">
+    <div class="col-sm-6">
+    <%= form.text_field :description, class: "form-control" %>
+    </div>
+  </div>  
+  <br>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">
+    +
+  </button>
+  <br>
+
+  <br>
+  <table class="table table-hover table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Combatant Name</th>
+        <th scope="col">Combatant Brief Description</th>
+        <th scope="col">Combatant Level or CR</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody id="combat_form_combatants_table_body">
+      <% combat.combatants.each do |combatant| %>
+        <%# TODO #1 %>
+        <tr> 
+          <td><%= combatant.formated_name %> </td>
+          <td><%= combatant.description %></td>
+          <td><%= combatant.cr_or_level %></td>
+          <td>Remove</td>
+        </tr>
+      <% end %>  
+    </tbody>
+  </table>
   <br>
   <div>
     <%= form.submit "Submit", class: "btn btn-outline-secondary" %>
   </div>
 <% end %>
+
+<%= render "shared/combatants_selector_modal" %>
+
+<script>
+
+  // TODO #3
+  // When remove button is clicked:
+  // Using Javascript. Study Code below for patterns
+  // Find the row
+  // Hide it
+  // Add hidden input with correct name combat[combatants_in_combat_attributes][][_destroy] (See buildSelectedCombatantsHTML for another name example)
+  // The input name controls how the data comes into the controller
+  // set the value of the hidden input to be 1. 1 means it's true
+
+  // TODO #4
+  // When remove button is clicked:
+  // Using Javascript. Study Code below for patterns
+  // Find the row
+  // Does the row have an CiC Id?
+  // If it does have a CiC id, then it was previously submitted
+  // If it does not have a CiC id, then do the following:
+  // Delete the html of the row
+
+
+  function combatantsConfirmModalButtonClick(e) {
+    selectedCombatants = gatherCheckedCombatants();
+    addSelectedCombatants(selectedCombatants);
+  }
+
+  function buildSelectedCombatantsHTML(selectedCombatants) {
+    selectedCombatantsHTML = ""
+    for (var i = 0; i < selectedCombatants.length; i++) {
+      let selectedCombatant = selectedCombatants[i];
+      let combatantId = selectedCombatant['combatantId'];
+      selectedCombatantsHTML += `
+        <tr data-id="${combatantId}">
+          <input name="combat[combatants_in_combat_attributes][][combatant_id]" type="hidden" value="${combatantId}" autocomplete="off">
+          <td>${selectedCombatant["name"]}</td>
+          <td>${selectedCombatant["description"]}</td>
+          <td>${selectedCombatant["crOrLevel"]}</td>
+        </tr>`
+    }
+    return selectedCombatantsHTML;
+  }
+
+  function addSelectedCombatants(selectedCombatants) {
+    let tableBody = document.getElementById("combat_form_combatants_table_body");
+    newHtml = buildSelectedCombatantsHTML(selectedCombatants);
+    tableBody.innerHTML += newHtml;
+  }
+
+  function gatherCheckedCombatants() {
+    let modalTableBody = document.getElementById("combatant_selector_modal_table_body");
+     let modalTableRows = modalTableBody.children;
+     let selectedCombatants = [];
+     for (var i = 0; i < modalTableRows.length; i++) {
+      let row = modalTableRows[i];
+      let combatantId = row.dataset.id;
+      let name = row.dataset.name;
+      let description = row.dataset.description || '';
+      let crOrLevel = row.dataset.crOrLevel || '';
+      let checked = document.getElementById("combatant_" + combatantId + "_selected").checked;
+      if (!checked) { continue ; }
+
+      selectedCombatants.push({
+        "combatantId": combatantId,
+        "checked": checked,
+        "name": name,
+        "description": description,
+        "crOrLevel": crOrLevel,
+      });
+    }
+    return selectedCombatants;
+  }
+
+  let button = document.getElementById("combatants_modal_confirm");
+  button.addEventListener("click", combatantsConfirmModalButtonClick);
+</script>

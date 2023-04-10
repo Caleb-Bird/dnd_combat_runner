@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_06_021124) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_10_193810) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_021124) do
     t.integer "temporary_hp"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "combat_id"
+    t.bigint "combatant_id"
+    t.index ["combat_id"], name: "index_combatants_in_combats_on_combat_id"
+    t.index ["combatant_id"], name: "index_combatants_in_combats_on_combatant_id"
   end
 
   create_table "combats", force: :cascade do |t|
@@ -61,4 +65,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_021124) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "combatants_in_combats", "combatants"
+  add_foreign_key "combatants_in_combats", "combats"
 end

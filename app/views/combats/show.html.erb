@@ -1,10 +1,13 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @combat %>
-
+<br>
 <div>
-  <%= link_to "Edit this combat", edit_combat_path(@combat) %> |
-  <%= link_to "Back to combats", combats_path %>
-
-  <%= button_to "Destroy this combat", @combat, method: :delete %>
+  <%= link_to "Edit this combat", edit_combat_path(@combat),class: "btn btn-secondary" %> |
+ 
+  <%= link_to "Back to combats", combats_path,class: "btn btn-secondary" %>
+</div>
+<br>
+<div>
+  <%= button_to "Destroy this combat", @combat, method: :delete,class: "btn btn-danger" %>
 </div>

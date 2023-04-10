@@ -1,5 +1,6 @@
 class CombatsController < ApplicationController
-  before_action :set_combat, only: %i[ show edit update destroy ]
+  before_action :set_combat, only: %i[show edit update destroy]
+  before_action :set_all_combatants, only: %i[new edit create update]
 
   # GET /combats or /combats.json
   def index
@@ -36,6 +37,7 @@ class CombatsController < ApplicationController
 
   # PATCH/PUT /combats/1 or /combats/1.json
   def update
+    # TODO Final Output: When deletingg a CiC we want the combatant params to have a { id: _destroy: true} object
     respond_to do |format|
       if @combat.update(combat_params)
         format.html { redirect_to combat_url(@combat), notice: "Combat was successfully updated." }
@@ -63,8 +65,11 @@ class CombatsController < ApplicationController
       @combat = Combat.find(params[:id])
     end
 
+
     # Only allow a list of trusted parameters through.
     def combat_params
-      params.require(:combat).permit(:combat_name)
+      params.require(:combat).permit(
+        :combat_name, :description, :user_id, combatants_in_combat_attributes: [:combatant_id, :id, :_destroy]
+      )
     end
 end

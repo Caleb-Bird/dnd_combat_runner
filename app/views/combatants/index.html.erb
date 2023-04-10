@@ -8,30 +8,25 @@
       <th scope="col">Brief Description</th>
       <th scope="col">Level or CR</th>
       <th scope="col"></th>
-      <th scope="col"></th>
-      <th scope="col">id</th>
     </tr>
   </thead>
   <tbody>
     <% @combatants.each do |combatant| %>
-    <% if combatant.user == current_user%>
       <tr>
         <td><%= link_to combatant.formated_name, edit_combatant_path(combatant) %></td>
         <td><%= combatant.description %></td>
         <td><%= combatant.cr_or_level %></td>
-        <td><%= button_to "Add to Combat", combatant, class: "btn btn-outline-secondary" %></td>
-        <td><%= button_to "Destroy", combatant, method: :delete, class: "btn btn-outline-secondary" %></td>
-         <td><%= combatant.user_id %></td>
+        <td><%= button_to "x", combatant, method: :delete, class: "btn btn-outline-danger" %></td>
       </tr>
-      <% end %>
     <% end %>  
   </tbody>
 </table>
 
   <%= link_to "New Combatant", new_combatant_path, class:"btn btn-outline-secondary"%>
-<%else%>
- 
-<%end%>
-
+<% else %>
+ <script>
+    window.location.href = '<%= new_user_session_path %>';
+  </script>
+<% end %>
 
 

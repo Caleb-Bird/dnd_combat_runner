@@ -1,10 +1,11 @@
 class CombatantsController < ApplicationController
   before_action :set_combatant, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_all_combatants, only: :index
+  
   #before_action :correct_user, only: [:edit, :update, :destroy] I THINK THIS IS CAUSING MY ERRORS
   # GET /combatants or /combatants.json
   def index
-    @combatants = Combatant.all
   end
 
   # GET /combatants/1 or /combatants/1.json
@@ -22,12 +23,12 @@ class CombatantsController < ApplicationController
   end
 
   # POST /combatants or /combatants.json
-  def create 
+  def create
    @combatant = Combatant.new(combatant_params)
     #@combatant = current_user.combatants.build(combatant_params)    
     respond_to do |format|
       if @combatant.save
-        format.html { redirect_to combatant_url(@combatant), notice: "Combatant was successfully created." }
+        format.html { redirect_to combatants_path, notice: "Combatant was successfully created." }
         format.json { render :show, status: :created, location: @combatant }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,9 +39,10 @@ class CombatantsController < ApplicationController
 
   # PATCH/PUT /combatants/1 or /combatants/1.json
   def update
+    
     respond_to do |format|
       if @combatant.update(combatant_params)
-        format.html { redirect_to combatant_url(@combatant), notice: "Combatant was successfully updated." }
+        format.html { redirect_to combatants_path, notice: "Combatant was successfully updated." }
         format.json { render :show, status: :ok, location: @combatant }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -64,6 +66,7 @@ class CombatantsController < ApplicationController
       #redirect_to combatants_path, notice: "Not Autherized to Edit This Combatant" if @combatant.nil?
     #end
 
+    
 
   private
     # Use callbacks to share common setup or constraints between actions.

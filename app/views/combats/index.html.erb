@@ -16,7 +16,7 @@
   <tbody>
     <% @combats.each do |combat| %>
       <tr>
-        <td><%= link_to combat.combat_name, combat %></td>
+        <td><%= link_to combat.combat_name, edit_combat_path(combat) %></td>
         <td></td>
         <td><%= button_to "Destroy", combat, method: :delete, class: "btn btn-outline-secondary" %></td>
       </tr>

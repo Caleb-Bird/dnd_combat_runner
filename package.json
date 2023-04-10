@@ -6,6 +6,10 @@
   "author": "caleb bird <caleb.bird123@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@prettier/plugin-ruby": "^3.2.2"
+    "@prettier/plugin-ruby": "^3.2.2",
+    "esbuild": "^0.17.16"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets"
   }
 }
