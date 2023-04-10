@@ -6,8 +6,10 @@ class HomeController < ApplicationController
   end
 
   def battlefield
+    
   end
 
   def combatantDirectory
   end
 end
+
