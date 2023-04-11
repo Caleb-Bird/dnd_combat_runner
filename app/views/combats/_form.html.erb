@@ -2,7 +2,6 @@
   <% if combat.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(combat.errors.count, "error") %> prohibited this combat from being saved:</h2>
-
       <ul>
         <% combat.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -30,6 +29,8 @@
     <%= form.text_field :description, class: "form-control" %>
     </div>
   </div>  
+
+<%= form.number_field :user_id, id: :combat_user_id, class: "form-control", step: 0.5, value: current_user.id, type: :hidden %>
   <br>
   <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">
@@ -49,7 +50,8 @@
     </thead>
     <tbody id="combat_form_combatants_table_body">
       <% combat.combatants.each do |combatant| %>
-        <%# TODO #1 %>
+        <%# TODO #1   this isnt working  <%= combatant.number_field “combat[combatants_in_combat_attributes][][id]”, value: combatants_in_combat.id %>
+              
         <tr> 
           <td><%= combatant.formated_name %> </td>
           <td><%= combatant.description %></td>

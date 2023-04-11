@@ -1,6 +1,6 @@
 class Combat < ApplicationRecord
-    # belongs_to :user
-    has_many :combatants_in_combat
+    belongs_to :user
+    has_many :combatants_in_combat, dependent: :destroy
     has_many :combatants, through: :combatants_in_combat
     
     # TODO #2

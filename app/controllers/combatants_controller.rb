@@ -6,6 +6,7 @@ class CombatantsController < ApplicationController
   #before_action :correct_user, only: [:edit, :update, :destroy] I THINK THIS IS CAUSING MY ERRORS
   # GET /combatants or /combatants.json
   def index
+    @combatant = Combatant.all
   end
 
   # GET /combatants/1 or /combatants/1.json

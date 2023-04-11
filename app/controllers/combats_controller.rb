@@ -1,10 +1,11 @@
 class CombatsController < ApplicationController
   before_action :set_combat, only: %i[show edit update destroy]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_all_combatants, only: %i[new edit create update]
 
   # GET /combats or /combats.json
   def index
-    @combats = Combat.all
+    @combats = current_user.combats
   end
 
   # GET /combats/1 or /combats/1.json
@@ -69,7 +70,12 @@ class CombatsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def combat_params
       params.require(:combat).permit(
-        :combat_name, :description, :user_id, combatants_in_combat_attributes: [:combatant_id, :id, :_destroy]
+        :combat_name,
+        :description,
+        :user_id,
+         
+        combatants_in_combat_attributes:
+          [:combatant_id, :id, :_destroy]
       )
     end
 end
