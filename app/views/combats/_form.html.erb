@@ -50,17 +50,18 @@
       </tr>
     </thead>
     <tbody id="combat_form_combatants_table_body">
+      <% cic_index = 0 %>
       <%= form.fields_for :combatants_in_combat do |cic_form| %>
         <%= cic_form.number_field :user_id, class: "form-control", step: 0.5, value: current_user.id, type: :hidden %>  
         <%= cic_form.number_field :id, class: "form-control", step: 0.5, value: cic_form.object.id, type: :hidden %> 
         <% combatant = (cic_form.object).combatant %>
-        <tr> 
+        <tr id="cic-<%= cic_index %>"> 
           <td><%= combatant.formated_name %> </td>
           <td><%= combatant.description %></td>
           <td><%= combatant.cr_or_level %></td>
-          <td>Remove</td>
+          <td><div data-index="<%= cic_index %>" class="cic-remove-button btn btn-outline-danger">x</div></td>
         </tr>
-        
+        <% cic_index += 1 %>
       <% end %>
     </tbody>
   </table>
@@ -104,6 +105,14 @@
   // If it does not have a CiC id, then do the following:
   // Delete the html of the row
   
+  function removeCic (e) {
+    let rowIndex = e.target.dataset.index
+    let tableRow = document.getElementById(`cic-${rowIndex}`)
+   // tableRow.style.display = "none";
+    //tableRow.innerHTML +='
+     // <input name="combat[combatants_in_combat_attributes[${cicIndex}][_destroy]]" type="hidden" value="1" autocomplete="off">'
+  }
+
 
 
   function combatantsConfirmModalButtonClick(e) {
@@ -122,7 +131,7 @@
       combatantId = selectedCombatant['combatantId'];
       userId = document.getElementById("combat_user_id").value;
       selectedCombatantsHTML += `
-        <tr data-id="${combatantId}">
+        <tr data-id="${combatantId}" id="cic-${cicIndex}">
           <td style = "display:none">
             <input name="combat[combatants_in_combat_attributes[${cicIndex}][combatant_id]]" type="hidden" value="${combatantId}" autocomplete="off">
             <input name="combat[combatants_in_combat_attributes[${cicIndex}][user_id]]" type="hidden" value="${userId}" autocomplete="off">
@@ -130,7 +139,7 @@
           <td>${selectedCombatant["name"]}</td>
           <td>${selectedCombatant["description"]}</td>
           <td>${selectedCombatant["crOrLevel"]}</td>
-          <td>remove</td>
+          <td><div data-index="${cicIndex}" class="cic-remove-button btn btn-outline-danger">x</div></td>
         </tr>`
       cicIndex++;
     }
@@ -177,8 +186,12 @@
   return selectedCombatants;
 }
 
-  let button = document.getElementById("combatants_modal_confirm");
-  button.addEventListener("click", combatantsConfirmModalButtonClick);
+  let confirmButton = document.getElementById("combatants_modal_confirm");
+  confirmButton.addEventListener("click", combatantsConfirmModalButtonClick);
 
+  let deleteButtons = document.getElementsByClassName("cic-remove-button");
+  for (var i = 0; i < deleteButtons.length; i++) { 
+    deleteButtons[i].addEventListener("click",removeCic);
+  }
   var cicIndex = <%= @combat.combatants_in_combat.count %>
 </script>
