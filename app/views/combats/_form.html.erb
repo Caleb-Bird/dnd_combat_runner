@@ -76,41 +76,13 @@
 
 
 <script>
- 
-  // TODO 3.1
-  // Find remove buttons by class. 
-  // let destroyButtons = document.getElementByClass("class_name");
-  // destroyButtonss.addEventListener("click", todo3.2Function);
-
-  // TODO 3.2
-  // define todo3.2Function
-  // For each tr it needs to have an id based on the row index
-  // For each delete button it needs to have data-row-index attribute
-  // That new data-row-index attribute can be referenced via row.dataset.index
-  // When a remove button is clicked, find the row via the delete button data-row-index attribute
-
-  // TODO 3.3
-  // Using Javascript. Study Code below for patterns
-  // Hide the row
-  // Add hidden input with correct name combat[combatants_in_combat_attributes][][_destroy] (See buildSelectedCombatantsHTML for another name example)
-  // The input name controls how the data comes into the controller
-  // set the value of the hidden input to be 1. 1 means it's true
-
-  // TODO #4
-  // When remove button is clicked:
-  // Using Javascript. Study Code below for patterns
-  // Find the row
-  // Does the row have an CiC Id?
-  // If it does have a CiC id, then it was previously submitted
-  // If it does not have a CiC id, then do the following:
-  // Delete the html of the row
   
   function removeCic (e) {
     let rowIndex = e.target.dataset.index
     let tableRow = document.getElementById(`cic-${rowIndex}`)
-   // tableRow.style.display = "none";
-    //tableRow.innerHTML +='
-     // <input name="combat[combatants_in_combat_attributes[${cicIndex}][_destroy]]" type="hidden" value="1" autocomplete="off">'
+    tableRow.style.display = "none";
+    tableRow.innerHTML += `
+      <input name="combat[combatants_in_combat_attributes[${rowIndex}][_destroy]]" type="hidden" value="1" autocomplete="off">`
   }
 
 
@@ -150,48 +122,53 @@
     let tableBody = document.getElementById("combat_form_combatants_table_body");
     newHtml = buildSelectedCombatantsHTML(selectedCombatants);
     tableBody.innerHTML += newHtml;
+    deleteButtonEventListeners();
   }
 
   function gatherCheckedCombatants() {
-  let modalTableBody = document.getElementById("combatant_selector_modal_table_body");
-  let modalTableRows = modalTableBody.children;
-  let selectedCombatants = [];
-  let row;
-  let combatantId;
-  let name;
-  let description;
-  let crOrLevel;
-  let checked;
-  let howMany;
-  for (var i = 0; i < modalTableRows.length; i++) { 
-    row = modalTableRows[i];
-    combatantId = row.dataset.id;
-    name = row.dataset.name;
-    description = row.dataset.description || '';
-    crOrLevel = row.dataset.crOrLevel || '';
-    checked = document.getElementById("combatant_" + combatantId + "_selected").checked;
-    howMany = document.getElementById(`combat_combatant_instances[${combatantId}]`).value;
-    if (!checked) { continue ; }
-    for (var j = 0; j < howMany ; j++){
-      tableIndex = i + j + cicIndex + 1 
-      selectedCombatants.push({
-        "combatantId": combatantId,
-        "checked": checked,
-        "name": name,
-       "description": description,
-       "crOrLevel": crOrLevel,
-      })
+    let modalTableBody = document.getElementById("combatant_selector_modal_table_body");
+    let modalTableRows = modalTableBody.children;
+    let selectedCombatants = [];
+    let row;
+    let combatantId;
+    let name;
+    let description;
+    let crOrLevel;
+    let checked;
+    let howMany;
+    for (var i = 0; i < modalTableRows.length; i++) { 
+      row = modalTableRows[i];
+      combatantId = row.dataset.id;
+      name = row.dataset.name;
+      description = row.dataset.description || '';
+      crOrLevel = row.dataset.crOrLevel || '';
+      checked = document.getElementById("combatant_" + combatantId + "_selected").checked;
+      howMany = document.getElementById(`combat_combatant_instances[${combatantId}]`).value;
+      if (!checked) { continue ; }
+      for (var j = 0; j < howMany ; j++){
+        tableIndex = i + j + cicIndex + 1 
+        selectedCombatants.push({
+          "combatantId": combatantId,
+          "checked": checked,
+          "name": name,
+        "description": description,
+        "crOrLevel": crOrLevel,
+        })
+      }
+    }
+    return selectedCombatants;
+  }
+
+  function deleteButtonEventListeners(){
+    let deleteButtons = document.getElementsByClassName("cic-remove-button");
+    for (var i = 0; i < deleteButtons.length; i++) { 
+      deleteButtons[i].addEventListener("click",removeCic);
     }
   }
-  return selectedCombatants;
-}
-
   let confirmButton = document.getElementById("combatants_modal_confirm");
   confirmButton.addEventListener("click", combatantsConfirmModalButtonClick);
 
-  let deleteButtons = document.getElementsByClassName("cic-remove-button");
-  for (var i = 0; i < deleteButtons.length; i++) { 
-    deleteButtons[i].addEventListener("click",removeCic);
-  }
+  deleteButtonEventListeners();
+  
   var cicIndex = <%= @combat.combatants_in_combat.count %>
 </script>
