@@ -1,4 +1,5 @@
-<%= form_with(model: combat) do |form| %>
+
+<%= form_with(model: combat, method: method) do |form| %>
   <% if combat.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(combat.errors.count, "error") %> prohibited this combat from being saved:</h2>
@@ -30,7 +31,7 @@
     </div>
   </div>  
 
-<%= form.number_field :user_id, id: :combat_user_id, class: "form-control", step: 0.5, value: current_user.id, type: :hidden %>
+  <%= form.number_field :user_id, class: "form-control", step: 0.5, value: current_user.id, type: :hidden %>
   <br>
   <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">
@@ -42,40 +43,54 @@
   <table class="table table-hover table-bordered">
     <thead class="table-dark">
       <tr>
-        <th scope="col">Combatant Name</th>
+        <th scope="col">Combatant Name 4</th>
         <th scope="col">Combatant Brief Description</th>
         <th scope="col">Combatant Level or CR</th>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody id="combat_form_combatants_table_body">
-      <% combat.combatants.each do |combatant| %>
-        <%# TODO #1   this isnt working  <%= combatant.number_field “combat[combatants_in_combat_attributes][][id]”, value: combatants_in_combat.id %>
-              
+      <%= form.fields_for :combatants_in_combat do |cic_form| %>
+        <%= cic_form.number_field :user_id, class: "form-control", step: 0.5, value: current_user.id, type: :hidden %>  
+        <%= cic_form.number_field :id, class: "form-control", step: 0.5, value: cic_form.object.id, type: :hidden %> 
+        <% combatant = (cic_form.object).combatant %>
         <tr> 
           <td><%= combatant.formated_name %> </td>
           <td><%= combatant.description %></td>
           <td><%= combatant.cr_or_level %></td>
           <td>Remove</td>
         </tr>
-      <% end %>  
+        
+      <% end %>
     </tbody>
   </table>
   <br>
   <div>
     <%= form.submit "Submit", class: "btn btn-outline-secondary" %>
   </div>
+
+  <%= render("shared/combatants_selector_modal", form: form) %>
 <% end %>
 
-<%= render "shared/combatants_selector_modal" %>
+
 
 <script>
+ 
+  // TODO 3.1
+  // Find remove buttons by class. 
+  // let destroyButtons = document.getElementByClass("class_name");
+  // destroyButtonss.addEventListener("click", todo3.2Function);
 
-  // TODO #3
-  // When remove button is clicked:
+  // TODO 3.2
+  // define todo3.2Function
+  // For each tr it needs to have an id based on the row index
+  // For each delete button it needs to have data-row-index attribute
+  // That new data-row-index attribute can be referenced via row.dataset.index
+  // When a remove button is clicked, find the row via the delete button data-row-index attribute
+
+  // TODO 3.3
   // Using Javascript. Study Code below for patterns
-  // Find the row
-  // Hide it
+  // Hide the row
   // Add hidden input with correct name combat[combatants_in_combat_attributes][][_destroy] (See buildSelectedCombatantsHTML for another name example)
   // The input name controls how the data comes into the controller
   // set the value of the hidden input to be 1. 1 means it's true
@@ -88,6 +103,7 @@
   // If it does have a CiC id, then it was previously submitted
   // If it does not have a CiC id, then do the following:
   // Delete the html of the row
+  
 
 
   function combatantsConfirmModalButtonClick(e) {
@@ -96,17 +112,27 @@
   }
 
   function buildSelectedCombatantsHTML(selectedCombatants) {
-    selectedCombatantsHTML = ""
+    selectedCombatantsHTML = "";
+    let userId;
+    let combatantId;
+    let selectedCombatant;
+    let cicTable = document.getElementById("combat_form_combatants_table_body");
     for (var i = 0; i < selectedCombatants.length; i++) {
-      let selectedCombatant = selectedCombatants[i];
-      let combatantId = selectedCombatant['combatantId'];
+      selectedCombatant = selectedCombatants[i];
+      combatantId = selectedCombatant['combatantId'];
+      userId = document.getElementById("combat_user_id").value;
       selectedCombatantsHTML += `
         <tr data-id="${combatantId}">
-          <input name="combat[combatants_in_combat_attributes][][combatant_id]" type="hidden" value="${combatantId}" autocomplete="off">
+          <td style = "display:none">
+            <input name="combat[combatants_in_combat_attributes[${cicIndex}][combatant_id]]" type="hidden" value="${combatantId}" autocomplete="off">
+            <input name="combat[combatants_in_combat_attributes[${cicIndex}][user_id]]" type="hidden" value="${userId}" autocomplete="off">
+          </td>
           <td>${selectedCombatant["name"]}</td>
           <td>${selectedCombatant["description"]}</td>
           <td>${selectedCombatant["crOrLevel"]}</td>
+          <td>remove</td>
         </tr>`
+      cicIndex++;
     }
     return selectedCombatantsHTML;
   }
@@ -118,29 +144,41 @@
   }
 
   function gatherCheckedCombatants() {
-    let modalTableBody = document.getElementById("combatant_selector_modal_table_body");
-     let modalTableRows = modalTableBody.children;
-     let selectedCombatants = [];
-     for (var i = 0; i < modalTableRows.length; i++) {
-      let row = modalTableRows[i];
-      let combatantId = row.dataset.id;
-      let name = row.dataset.name;
-      let description = row.dataset.description || '';
-      let crOrLevel = row.dataset.crOrLevel || '';
-      let checked = document.getElementById("combatant_" + combatantId + "_selected").checked;
-      if (!checked) { continue ; }
-
+  let modalTableBody = document.getElementById("combatant_selector_modal_table_body");
+  let modalTableRows = modalTableBody.children;
+  let selectedCombatants = [];
+  let row;
+  let combatantId;
+  let name;
+  let description;
+  let crOrLevel;
+  let checked;
+  let howMany;
+  for (var i = 0; i < modalTableRows.length; i++) { 
+    row = modalTableRows[i];
+    combatantId = row.dataset.id;
+    name = row.dataset.name;
+    description = row.dataset.description || '';
+    crOrLevel = row.dataset.crOrLevel || '';
+    checked = document.getElementById("combatant_" + combatantId + "_selected").checked;
+    howMany = document.getElementById(`combat_combatant_instances[${combatantId}]`).value;
+    if (!checked) { continue ; }
+    for (var j = 0; j < howMany ; j++){
+      tableIndex = i + j + cicIndex + 1 
       selectedCombatants.push({
         "combatantId": combatantId,
         "checked": checked,
         "name": name,
-        "description": description,
-        "crOrLevel": crOrLevel,
-      });
+       "description": description,
+       "crOrLevel": crOrLevel,
+      })
     }
-    return selectedCombatants;
   }
+  return selectedCombatants;
+}
 
   let button = document.getElementById("combatants_modal_confirm");
   button.addEventListener("click", combatantsConfirmModalButtonClick);
+
+  var cicIndex = <%= @combat.combatants_in_combat.count %>
 </script>

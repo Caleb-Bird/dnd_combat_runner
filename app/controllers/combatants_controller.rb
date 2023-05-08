@@ -6,7 +6,7 @@ class CombatantsController < ApplicationController
   #before_action :correct_user, only: [:edit, :update, :destroy] I THINK THIS IS CAUSING MY ERRORS
   # GET /combatants or /combatants.json
   def index
-    @combatant = Combatant.all
+    @combatants = current_user.combatants
   end
 
   # GET /combatants/1 or /combatants/1.json
@@ -39,8 +39,8 @@ class CombatantsController < ApplicationController
   end
 
   # PATCH/PUT /combatants/1 or /combatants/1.json
+
   def update
-    
     respond_to do |format|
       if @combatant.update(combatant_params)
         format.html { redirect_to combatants_path, notice: "Combatant was successfully updated." }

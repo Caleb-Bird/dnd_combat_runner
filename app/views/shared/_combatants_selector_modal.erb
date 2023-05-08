@@ -1,3 +1,4 @@
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -16,6 +17,7 @@
               <th scope="col">Name</th>
               <th scope="col">Brief Description</th>
               <th scope="col">Level or CR</th>
+              <th scope="row g-3 align-items-center">Number</th>
             </tr>
           </thead>
           <tbody id="combatant_selector_modal_table_body">
@@ -30,6 +32,9 @@
                 <td><%= combatant.formated_name %></td>
                 <td><%= combatant.description %></td>
                 <td><%= combatant.cr_or_level %></td>
+                <td class="how-many-width">
+                    <%= form.number_field("combatant_instances[#{combatant.id}]", {:value => 1, :min => 1, :max => 10}) %> 
+                </td>
               </tr>
             <% end %>  
           </tbody>

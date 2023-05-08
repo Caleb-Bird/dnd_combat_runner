@@ -13,6 +13,6 @@
  *= require_tree .
  *= require_self
  */
-.form_width {
-    width: 30%;
-}
+.how-many-width input {
+    width: 50px; /* adjust the width as needed */
+  }

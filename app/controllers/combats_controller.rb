@@ -9,8 +9,8 @@ class CombatsController < ApplicationController
   end
 
   # GET /combats/1 or /combats/1.json
-  def show
-  end
+  def show; end
+  
 
   # GET /combats/new
   def new
@@ -24,7 +24,6 @@ class CombatsController < ApplicationController
   # POST /combats or /combats.json
   def create
     @combat = Combat.new(combat_params)
-
     respond_to do |format|
       if @combat.save
         format.html { redirect_to combat_url(@combat), notice: "Combat was successfully created." }
@@ -35,20 +34,22 @@ class CombatsController < ApplicationController
       end
     end
   end
-
   # PATCH/PUT /combats/1 or /combats/1.json
   def update
-    # TODO Final Output: When deletingg a CiC we want the combatant params to have a { id: _destroy: true} object
+    logger.debug('this is where it broke')
+    test_params = combat_params
+    puts test_params
     respond_to do |format|
-      if @combat.update(combat_params)
+      if @combat.update(test_params)
         format.html { redirect_to combat_url(@combat), notice: "Combat was successfully updated." }
         format.json { render :show, status: :ok, location: @combat }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @combat.errors, status: :unprocessable_entity }
       end
-    end
-  end
+    end 
+  end   
+
 
   # DELETE /combats/1 or /combats/1.json
   def destroy
@@ -62,20 +63,20 @@ class CombatsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_combat
-      @combat = Combat.find(params[:id])
-    end
+  def set_combat
+    @combat = Combat.find(params[:id])
+  end
 
 
     # Only allow a list of trusted parameters through.
-    def combat_params
-      params.require(:combat).permit(
-        :combat_name,
-        :description,
-        :user_id,
+  def combat_params
+    params.require(:combat).permit(
+      :combat_name,
+      :description,
+      :user_id,
          
-        combatants_in_combat_attributes:
-          [:combatant_id, :id, :_destroy]
-      )
-    end
+      combatants_in_combat_attributes:
+        [:combatant_id, :id, :_destroy, :user_id, :combat_table_index]    
+    )
+  end  
 end

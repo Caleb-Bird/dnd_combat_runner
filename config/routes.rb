@@ -2,7 +2,11 @@ Rails.application.routes.draw do
 
   devise_for :users
   authenticate :user do 
-    resources :combats
+    resources :combats do
+      member do
+        post '/', to: 'combats#update'
+      end
+    end
     resources :combatants
     get 'home/combatSetup'
     get 'home/battlefield'
