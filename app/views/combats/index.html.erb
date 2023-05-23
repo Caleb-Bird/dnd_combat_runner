@@ -10,7 +10,6 @@
     <tr>
       <th scope="col">Name</th>
       <th scope="col">Brief Description</th>
-      
       <th scope="col"></th>
     </tr>
   </thead>
@@ -18,7 +17,7 @@
     <% @combats.each do |combat| %>
       <tr>
         <td><%= link_to combat.combat_name, edit_combat_path(combat) %></td>
-        <td></td>
+        <td><%= combat.description%></td>
         <td><%= button_to "Destroy", combat, method: :delete, class: "btn btn-outline-secondary" %></td>
       </tr>
     <% end %>

@@ -1,6 +1,33 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @combat %>
+
+
+<table class="table table-hover table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Brief Description</th>
+      <th scope="col">Level or CR</th>
+      </tr>
+  </thead>
+  <tbody>
+    <% @combat.combatants_in_combat.each do |combatant_in_combat| %>
+    <% combatant = combatant_in_combat.combatant %>
+    <tr 
+      data-name="<%=combatant.name %>"
+      data-description="<%=combatant.description %>"
+      data-crOrLevel="<%=combatant.cr_or_level %>"
+    >
+      <td><%= combatant.formated_name %></td>
+      <td><%= combatant.description %></td>
+      <td><%= combatant.cr_or_level %></td>
+    </tr>
+    <% end %>  
+  </tbody>
+</table>
+
+ </table> 
 <br>
 <div>
   <%= link_to "Edit this combat", edit_combat_path(@combat),class: "btn btn-secondary" %> |
@@ -9,5 +36,5 @@
 </div>
 <br>
 <div>
-  <%= button_to "Destroy this combat", @combat, method: :delete,class: "btn btn-danger" %>
+  <%= link_to "Combat Setup", setup_combat_path,class: "btn btn-secondary" %>
 </div>

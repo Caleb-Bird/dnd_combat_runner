@@ -1,0 +1,28 @@
+
+<%= form_with(model: @combat, method: :put) do |form| %>
+
+ <table class="table table-hover table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Combatant Name</th>
+        <th scope="col">Current HP</th>
+        <th scope="col">Temporary HP</th>
+        <th scope="col">Initiative</th>
+      </tr>
+    </thead>
+     <tbody>
+      <%= form.fields_for :combatants_in_combat do |cic_form| %>
+        <tr> 
+          <td><%= cic_form.object.combatant.formated_name%></td>
+          <td><%= cic_form.number_field :current_hp, class: "form-control", value: cic_form.object.combatant.maximum_hp %></td>
+          <td><%= cic_form.number_field :temporary_hp, class: "form-control", value: 0 %></td></td>
+          <td><%= cic_form.number_field :working_initiative, class: "form-control" %></td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>  
+  <div>
+    <%= form.submit "Submit", class: "btn btn-secondary" %>
+  </div>
+  
+<% end %>

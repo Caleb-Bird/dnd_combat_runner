@@ -1,6 +1,6 @@
 class CombatsController < ApplicationController
-  before_action :set_combat, only: %i[show edit update destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_combat, only: %i[show edit update destroy setup]
+  before_action :authenticate_user!, except: [:index, :show, :setup]
   before_action :set_all_combatants, only: %i[new edit create update]
 
   # GET /combats or /combats.json
@@ -67,6 +67,9 @@ class CombatsController < ApplicationController
     @combat = Combat.find(params[:id])
   end
 
+  def setup
+
+  end
 
     # Only allow a list of trusted parameters through.
   def combat_params
@@ -76,7 +79,7 @@ class CombatsController < ApplicationController
       :user_id,
          
       combatants_in_combat_attributes:
-        [:combatant_id, :id, :_destroy, :user_id, :combat_table_index]    
+        [:working_initiative, :current_hp, :temporary_hp, :combatant_id, :id, :_destroy, :user_id, :combat_table_index]    
     )
   end  
 end

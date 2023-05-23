@@ -43,7 +43,7 @@
   <table class="table table-hover table-bordered">
     <thead class="table-dark">
       <tr>
-        <th scope="col">Combatant Name 4</th>
+        <th scope="col">Combatant Name</th>
         <th scope="col">Combatant Brief Description</th>
         <th scope="col">Combatant Level or CR</th>
         <th scope="col"></th>
@@ -141,7 +141,7 @@
       combatantId = row.dataset.id;
       name = row.dataset.name;
       description = row.dataset.description || '';
-      crOrLevel = row.dataset.crOrLevel || '';
+      crOrLevel = row.dataset.crorlevel || '';
       checked = document.getElementById("combatant_" + combatantId + "_selected").checked;
       howMany = document.getElementById(`combat_combatant_instances[${combatantId}]`).value;
       if (!checked) { continue ; }
