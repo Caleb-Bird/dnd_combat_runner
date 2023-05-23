@@ -36,11 +36,8 @@ class CombatsController < ApplicationController
   end
   # PATCH/PUT /combats/1 or /combats/1.json
   def update
-    logger.debug('this is where it broke')
-    test_params = combat_params
-    puts test_params
     respond_to do |format|
-      if @combat.update(test_params)
+      if @combat.update(combat_params)
         format.html { redirect_to combat_url(@combat), notice: "Combat was successfully updated." }
         format.json { render :show, status: :ok, location: @combat }
       else
