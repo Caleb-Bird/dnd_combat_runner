@@ -36,9 +36,10 @@ class CombatsController < ApplicationController
   end
   # PATCH/PUT /combats/1 or /combats/1.json
   def update
+    redirect_url = params[:redirect_url] || combat_url(@combat)
     respond_to do |format|
       if @combat.update(combat_params)
-        format.html { redirect_to combat_url(@combat), notice: "Combat was successfully updated." }
+        format.html { redirect_to redirect_url, notice: "Combat was successfully updated." }
         format.json { render :show, status: :ok, location: @combat }
       else
         format.html { render :edit, status: :unprocessable_entity }
