@@ -1,15 +1,17 @@
 class CombatsController < ApplicationController
-  before_action :set_combat, only: %i[show edit update destroy setup]
+  before_action :set_combat, only: %i[show edit update destroy setup run]
   before_action :authenticate_user!, except: [:index, :show, :setup]
   before_action :set_all_combatants, only: %i[new edit create update]
 
   # GET /combats or /combats.json
   def index
+    
     @combats = current_user.combats
   end
 
   # GET /combats/1 or /combats/1.json
-  def show; end
+  def show; 
+  end
   
 
   # GET /combats/new
@@ -36,10 +38,10 @@ class CombatsController < ApplicationController
   end
   # PATCH/PUT /combats/1 or /combats/1.json
   def update
-    redirect_url = params[:redirect_url] || combat_url(@combat)
+    destination = params[:redirect_url] || combat_url(@combat)
     respond_to do |format|
       if @combat.update(combat_params)
-        format.html { redirect_to redirect_url, notice: "Combat was successfully updated." }
+        format.html { redirect_to destination, notice: "Combat was successfully updated." }
         format.json { render :show, status: :ok, location: @combat }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,14 +61,18 @@ class CombatsController < ApplicationController
     end
   end
 
+  def run
+    if @combat.status == "draft"
+      redirect_to setup_combat_path
+    end
+  end
+
+  def setup
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
   def set_combat
     @combat = Combat.find(params[:id])
-  end
-
-  def setup
-
   end
 
     # Only allow a list of trusted parameters through.
@@ -75,6 +81,7 @@ class CombatsController < ApplicationController
       :combat_name,
       :description,
       :user_id,
+      :status,
          
       combatants_in_combat_attributes:
         [:working_initiative, :current_hp, :temporary_hp, :combatant_id, :id, :_destroy, :user_id, :combat_table_index]    

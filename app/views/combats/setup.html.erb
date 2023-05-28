@@ -22,7 +22,9 @@
     </tbody>
   </table>  
   <div>
-    <%= form.submit "Submit", class: "btn btn-secondary" %>
+    <%= form.submit "Run Combat", class: "btn btn-secondary" %>
   </div>
-  
+
+  <%= form.hidden_field :status, value: "setup" %>
+  <%= hidden_field_tag :redirect_url, run_combat_path %>
 <% end %>

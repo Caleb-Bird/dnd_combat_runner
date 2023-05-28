@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       member do
         post '/', to: 'combats#update'
         get '/setup', to: 'combats#setup', as: :setup
+        get '/run', to: 'combats#run', as: :run
       end
     end
     resources :combatants

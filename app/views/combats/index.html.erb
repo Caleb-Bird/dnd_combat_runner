@@ -11,14 +11,16 @@
       <th scope="col">Name</th>
       <th scope="col">Brief Description</th>
       <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     <% @combats.each do |combat| %>
       <tr>
-        <td><%= link_to combat.combat_name, edit_combat_path(combat) %></td>
+        <td><%= link_to combat.combat_name, combat_path(combat) %></td>
         <td><%= combat.description%></td>
         <td><%= button_to "Destroy", combat, method: :delete, class: "btn btn-outline-secondary" %></td>
+        <td><%= link_to "Run Combat", run_combat_path(combat),  class: "btn btn-primary" %></td>
       </tr>
     <% end %>
   </tbody>
