@@ -1,0 +1,4 @@
+<% prop = { combat: @combat, combatants_in_combat: @combat.combatants_in_combat.joins(:combatant).map{|cic| { combatant: cic.combatant.attributes, **cic.attributes}}} %>
+
+
+<combat-run id = 'combatRun' props-json='<%=prop.to_json %>'><combat-run/>

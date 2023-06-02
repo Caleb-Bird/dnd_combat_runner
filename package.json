@@ -7,7 +7,10 @@
   "license": "MIT",
   "dependencies": {
     "@prettier/plugin-ruby": "^3.2.2",
-    "esbuild": "^0.17.16"
+    "esbuild": "^0.17.19",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remount": "^1.0.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets"
