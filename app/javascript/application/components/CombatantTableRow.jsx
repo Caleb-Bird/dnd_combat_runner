@@ -1,18 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class CombatantTableRow extends Component {
-  state = {
-  } 
-  constructor (props) {
-    super(props);
-  }
-  render() { 
-    return (
-    <>
-    
-    </>
-    );
-  }
-}
+const CombatantTableRow = () => (<></>)
  
 export default CombatantTableRow;
