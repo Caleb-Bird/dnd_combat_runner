@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   authenticate :user do 
+    resources :combatants_in_combat, only: :update
     resources :combats do
       member do
         post '/', to: 'combats#update'

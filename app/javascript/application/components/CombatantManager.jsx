@@ -25,6 +25,14 @@ const CombatantManager = (props) => {
     }
   }
 
+  const changeCurrentHp = (e, combatant_in_combat) => {
+    return dispatch({
+      action: 'updateCombatantInCombatCurrentHp',
+      value: e.target.value,
+      combatant_in_combat: combatant_in_combat
+    });
+  }
+
   return (
     <>
     <table className="table table-hover table-bordered">
@@ -34,17 +42,19 @@ const CombatantManager = (props) => {
           <th scope="col">Current HP</th>
           <th scope="col">Temporary HP</th>
           <th scope="col">Initiative</th>
+          <th scope="col">Stats</th>
         </tr>
       </thead>
       <tbody>
       {[...props.combatants_in_combat]
         .sort((cic1,cic2)=>(cic2.working_initiative-cic1.working_initiative))
         .map((combatant_in_combat, index) => (
-          <tr onClick={() => clickSelect(combatant_in_combat)} className={calculateTablePrimary(combatant_in_combat)} key={index}>
+          <tr className={calculateTablePrimary(combatant_in_combat)} key={index}>
             <td>{combatant_in_combat.combatant.name}</td>
-            <td>{combatant_in_combat.current_hp}</td>
+            <td><input type="number" onChange={(e) => changeCurrentHp(e, combatant_in_combat)} defaultValue={combatant_in_combat.current_hp || null}></input></td>
             <td>{combatant_in_combat.temporary_hp}</td>
             <td>{combatant_in_combat.working_initiative}</td>
+            <td><button onClick={() => clickSelect(combatant_in_combat)} >Stats</button></td>
           </tr>
         ))}
       </tbody>
