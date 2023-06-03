@@ -12,10 +12,10 @@ const CombatRun = (props) => {
 
   const updateSelectedCombatantInCombat = (selectedCombatantInCombat)=>{
     updateCombatState(combatState =>{
-      combatState.selectedCombatantInCombatant = selectedCombatantInCombat;
+      combatState.selectedCombatantInCombat = selectedCombatantInCombat;
     });
-  
   }
+
   return <>
     <div className="container">
       <div className="row">
@@ -24,7 +24,7 @@ const CombatRun = (props) => {
             combatants_in_combat={combatState.combatants_in_combat}
             selectedCombatantInCombat = {combatState.selectedCombatantInCombat}
             updateCombatState = {updateCombatState}
-            updateSelectedCombatantInCombat ={updateSelectedCombatantInCombat}
+            updateSelectedCombatantInCombat= {updateSelectedCombatantInCombat}
           />
         </div>
         <div className="col">

@@ -9,7 +9,8 @@ const CombatantManager = (props) => {
       return 'table-primary'
     }
     return '';
-  } 
+  }
+
   return (
     <>
     <table className="table table-hover table-bordered">
@@ -25,7 +26,7 @@ const CombatantManager = (props) => {
       {[...props.combatants_in_combat]
         .sort((cic1,cic2)=>(cic2.working_initiative-cic1.working_initiative))
         .map((combatant_in_combat, index) => (
-          <tr className={calculateTablePrimary(combatant_in_combat)} key={index}>
+          <tr onClick={() => {props.updateSelectedCombatantInCombat(combatant_in_combat)}} className={calculateTablePrimary(combatant_in_combat)} key={index}>
             <td>{combatant_in_combat.combatant.name}</td>
             <td>{combatant_in_combat.current_hp}</td>
             <td>{combatant_in_combat.temporary_hp}</td>
