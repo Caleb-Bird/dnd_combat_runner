@@ -1,29 +1,32 @@
 import React from 'react'
 import CombatantManager from './CombatantManager'
-import { useImmer, useImmerReducer } from "use-immer";
-import {updateCombatantInCombat} from "../reducers/selectedCombatantInCombat"
+import { useImmerReducer } from "use-immer";
+import reducerIndex from "../reducers/reducerIndex"
+import { DispatchProvider } from '../contexts/DispatchContext';
 
 const CombatRun = (props) => {
-
-  const [combatState, dispatch] = useImmerReducer(updateCombatantInCombat, {
+  const [combatState, dispatch] = useImmerReducer(reducerIndex, {
     selectedCombatantInCombat: null,
     ...props
   });
 
-  return <>
-    <div className="container">
-      <div className="row">
-        <div className="col">
-          <CombatantManager 
-            combatants_in_combat={combatState.combatants_in_combat}
-            selectedCombatantInCombat = {combatState.selectedCombatantInCombat}
-            dispatch = {dispatch}
-          />
-        </div>
-        <div className="col">
+  return (
+    <DispatchProvider value={dispatch}>
+      <div className="container">
+        <div className="row">
+          <div className="col">
+        
+              <CombatantManager 
+                combatants_in_combat={combatState.combatants_in_combat}
+                selectedCombatantInCombat = {combatState.selectedCombatantInCombat}
+              />
+
+          </div>
+          <div className="col">
+          </div>
         </div>
       </div>
-    </div>
-  </>
+    </DispatchProvider>
+  )
 }
 export default CombatRun

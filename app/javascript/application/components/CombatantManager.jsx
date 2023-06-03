@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import DispatchContext from '../contexts/DispatchContext';
 
 
 const CombatantManager = (props) => {
+  const dispatch = useContext(DispatchContext);
 
   const calculateTablePrimary = (combatant_in_combat)=>{
     if (!props.selectedCombatantInCombat){return '';}
@@ -26,7 +28,7 @@ const CombatantManager = (props) => {
       {[...props.combatants_in_combat]
         .sort((cic1,cic2)=>(cic2.working_initiative-cic1.working_initiative))
         .map((combatant_in_combat, index) => (
-          <tr onClick={() => {props.dispatch({action: "selectCombatantInCombat", value: combatant_in_combat})}} className={calculateTablePrimary(combatant_in_combat)} key={index}>
+          <tr onClick={() => {dispatch({action: "selectCombatantInCombat", value: combatant_in_combat})}} className={calculateTablePrimary(combatant_in_combat)} key={index}>
             <td>{combatant_in_combat.combatant.name}</td>
             <td>{combatant_in_combat.current_hp}</td>
             <td>{combatant_in_combat.temporary_hp}</td>

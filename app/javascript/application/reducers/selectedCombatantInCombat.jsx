@@ -1,9 +1,11 @@
-export const updateCombatantInCombat = (draft, data) => {
+const selectedCombatantInCombat = (draft, data) => {
   switch (data.action) {
     case "selectCombatantInCombat":
       draft.selectedCombatantInCombat = data.value;
-      return 
+      return true
     default:
-      return 
+      return false
   }
 }
+
+export default selectedCombatantInCombat;
