@@ -3,6 +3,9 @@ const selectedCombatantInCombat = (draft, data) => {
     case "selectCombatantInCombat":
       draft.selectedCombatantInCombat = data.value;
       return true
+    case "unselectCombatantInCombat":
+      draft.selectedCombatantInCombat = null;
+      return true  
     default:
       return false
   }
