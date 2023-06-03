@@ -1,20 +1,14 @@
 import React from 'react'
 import CombatantManager from './CombatantManager'
-import { useImmer } from "use-immer";
-
-
+import { useImmer, useImmerReducer } from "use-immer";
+import {updateCombatantInCombat} from "../reducers/selectedCombatantInCombat"
 
 const CombatRun = (props) => {
-  const [combatState, updateCombatState] = useImmer({
+
+  const [combatState, dispatch] = useImmerReducer(updateCombatantInCombat, {
     selectedCombatantInCombat: null,
     ...props
   });
-
-  const updateSelectedCombatantInCombat = (selectedCombatantInCombat)=>{
-    updateCombatState(combatState =>{
-      combatState.selectedCombatantInCombat = selectedCombatantInCombat;
-    });
-  }
 
   return <>
     <div className="container">
@@ -23,8 +17,7 @@ const CombatRun = (props) => {
           <CombatantManager 
             combatants_in_combat={combatState.combatants_in_combat}
             selectedCombatantInCombat = {combatState.selectedCombatantInCombat}
-            updateCombatState = {updateCombatState}
-            updateSelectedCombatantInCombat= {updateSelectedCombatantInCombat}
+            dispatch = {dispatch}
           />
         </div>
         <div className="col">
