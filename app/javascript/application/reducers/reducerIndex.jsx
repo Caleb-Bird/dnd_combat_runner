@@ -1,9 +1,11 @@
 import selectedCombatantInCombat from './selectedCombatantInCombat'
 import combatantInCombat from './combatantInCombat'
+import combat from './combat'
 
 const reducers = [
   selectedCombatantInCombat,
-  combatantInCombat
+  combatantInCombat,
+  combat
 ]
 
 const reducerIndex = (draft, data) => {

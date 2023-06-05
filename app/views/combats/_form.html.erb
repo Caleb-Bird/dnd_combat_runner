@@ -12,34 +12,21 @@
   <% end %>
 
   <div class="row g-3 align-items-center">
-    <div class="col-sm-2">
-      <%= form.label :combat_name%>
-    </div> 
-    <div class="col-sm-4">
-      <%= form.text_field :combat_name, class: "form-control" %>
-    </div>  
-  </div>
-<br>
- <div class="row g-3 align-items-center">
-    <div class="col-sm-3">
-      <%= form.label :description %>
-    </div> 
+    <div class="col-sm-2"><%= form.label :combat_name%></div> 
+    <div class="col-sm-4"><%= form.text_field :combat_name, class: "form-control" %></div>  
+  </div><br>
+
+  <div class="row g-3 align-items-center">
+    <div class="col-sm-3"><%= form.label :description %></div> 
   </div>
   <div class="row g-3 align-items-center">
-    <div class="col-sm-6">
-    <%= form.text_field :description, class: "form-control" %>
-    </div>
-  </div>  
+    <div class="col-sm-6"><%= form.text_field :description, class: "form-control" %></div>
+  </div>
 
-  <%= form.number_field :user_id, class: "form-control", step: 0.5, value: current_user.id, type: :hidden %>
-  <br>
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">
-    +
-  </button>
-  <br>
+  <%= form.number_field :user_id, class: "form-control", step: 0.5, value: current_user.id, type: :hidden %><br>
 
-  <br>
+  <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">+</button><br><br>
+
   <table class="table table-hover table-bordered">
     <thead class="table-dark">
       <tr>
@@ -56,7 +43,7 @@
         <%= cic_form.number_field :id, class: "form-control", step: 0.5, value: cic_form.object.id, type: :hidden %> 
         <% combatant = (cic_form.object).combatant %>
         <tr id="cic-<%= cic_index %>"> 
-          <td><%= combatant.formated_name %> </td>
+          <td><%= combatant.formated_name %></td>
           <td><%= combatant.description %></td>
           <td><%= combatant.cr_or_level %></td>
           <td><div data-index="<%= cic_index %>" class="cic-remove-button btn btn-outline-danger">x</div></td>
@@ -64,16 +51,12 @@
         <% cic_index += 1 %>
       <% end %>
     </tbody>
-  </table>
-  <br>
-  <div>
-    <%= form.submit "Submit", class: "btn btn-outline-secondary" %>
-  </div>
+  </table><br>
+
+  <div><%= form.submit "Submit", class: "btn btn-outline-secondary" %></div>
 
   <%= render("shared/combatants_selector_modal", form: form) %>
 <% end %>
-
-
 
 <script>
   
@@ -84,8 +67,6 @@
     tableRow.innerHTML += `
       <input name="combat[combatants_in_combat_attributes[${rowIndex}][_destroy]]" type="hidden" value="1" autocomplete="off">`
   }
-
-
 
   function combatantsConfirmModalButtonClick(e) {
     selectedCombatants = gatherCheckedCombatants();
