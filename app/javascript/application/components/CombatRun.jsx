@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CombatantManager from './CombatantManager'
 import { useImmerReducer } from "use-immer";
 import reducerIndex from "../reducers/reducerIndex"
@@ -35,13 +35,13 @@ const CombatRun = (props) => {
           </div>
           <div className="col-sm-4">
             <div className="row row-cols-1">
-              <div class="col">
+              <div className="col">
                 <CombatTools
                   combatants_in_combat={combatState.combatants_in_combat}
                   combat={combatState.combat}
                 />
               </div>
-              <div class="col">
+              <div className="col">
                 <StatsViewer
                   combatants_in_combat={combatState.combatants_in_combat}
                   selectedCombatantInCombat = {combatState.selectedCombatantInCombat}

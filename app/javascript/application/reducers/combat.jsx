@@ -1,6 +1,3 @@
-import { CombatTools } from '../components/CombatTools';
-import { updateCombat } from '../api/updateCombat';
-
 const combat = (draft, data) => {
   switch (data.action) {
     case "nextInitiative":
@@ -9,11 +6,11 @@ const combat = (draft, data) => {
         return combatant_in_combat.working_initiative <= currentInitiative
       });
 
-    if (currentCombatant = null){
-      currentCombatant = draft.combatants_in_combat[0]
-    }
-    draft.combat.current_initiative = currentCombatant.working_initiative
-    draft.initiativeCombatant = currentCombatant.id
+      if (currentCombatant == null){
+        currentCombatant = draft.combatants_in_combat[0]
+      }
+      draft.combat.current_initiative = currentCombatant.working_initiative
+      draft.initiativeCombatant = currentCombatant.id
     default:
       return false
   }
