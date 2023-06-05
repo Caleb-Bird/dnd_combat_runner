@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import DispatchContext from '../contexts/DispatchContext';
 
 
@@ -6,15 +6,20 @@ const CombatantManager = (props) => {
   const dispatch = useContext(DispatchContext);
 
   const calculateTableHightlight = (combatant_in_combat)=>{
-    if (!props.selectedCombatantInCombat){return '';}
+    debugger
     if (combatant_in_combat == props.initiativeCombatant){
       return 'table-secondary'
     }
+    if (!props.selectedCombatantInCombat){return '';}
     if (combatant_in_combat.id == props.selectedCombatantInCombat.id) {
       return 'table-primary'
     }
     return '';
   }
+
+  useEffect(() => {
+    [...props.combatants_in_combat].map((combatant_in_combat, index) => (calculateTableHightlight(combatant_in_combat)))
+  }, [props.initiativeCombatant]);
 
   const clickSelect = (combatant_in_combat) => {
     return dispatch({action: toggleSelect(combatant_in_combat), value: combatant_in_combat })
