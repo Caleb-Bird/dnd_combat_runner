@@ -18,6 +18,7 @@ const CombatRun = (props) => {
   });
 
   useEffect(() => {
+    console.log('CombatRun UseEffect');
     dispatch({ action: "nextInitiative" })
   }, []);
 

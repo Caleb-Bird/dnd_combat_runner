@@ -6,7 +6,6 @@ const CombatantManager = (props) => {
   const dispatch = useContext(DispatchContext);
 
   const calculateTableHightlight = (combatant_in_combat)=>{
-    debugger
     if (combatant_in_combat == props.initiativeCombatant){
       return 'table-secondary'
     }
@@ -18,6 +17,7 @@ const CombatantManager = (props) => {
   }
 
   useEffect(() => {
+    console.log('CombatantManager UseEffect');
     [...props.combatants_in_combat].map((combatant_in_combat, index) => (calculateTableHightlight(combatant_in_combat)))
   }, [props.initiativeCombatant]);
 
