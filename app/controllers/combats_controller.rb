@@ -37,6 +37,7 @@ class CombatsController < ApplicationController
       end
     end
   end
+  
   # PATCH/PUT /combats/1 or /combats/1.json
   def update
     destination = params[:redirect_url] || combat_url(@combat)
@@ -70,6 +71,7 @@ class CombatsController < ApplicationController
 
   def setup
   end
+
   private
     # Use callbacks to share common setup or constraints between actions.
   def set_combat

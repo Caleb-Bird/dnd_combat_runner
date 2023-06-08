@@ -6,4 +6,7 @@ class Combat < ApplicationRecord
     validates_associated :combatants_in_combat
 
     enum status: { draft: 0, setup: 1, running: 2, completed: 3 }
+
+    validates :combat_name, presence: true
+    validates :current_initiative, presence: true
 end
