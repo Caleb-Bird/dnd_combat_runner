@@ -61,6 +61,10 @@ const StatsViewer = (props) => {
         <td>Initiative</td>
         <td>{calculateShow(props)?.combatant?.initiative}</td>
       </tr>
+      <tr>
+        <td>Dexterity Score</td>
+        <td>{calculateShow(props)?.combatant?.dexterity_score}</td>
+      </tr>
       </body>  
     </table>     
     </>

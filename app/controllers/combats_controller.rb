@@ -26,9 +26,10 @@ class CombatsController < ApplicationController
   # POST /combats or /combats.json
   def create
     @combat = Combat.new(combat_params)
+    destination = params[:redirect_url] || combat_url(@combat)
     respond_to do |format|
       if @combat.save
-        format.html { redirect_to combat_url(@combat), notice: "Combat was successfully created." }
+        format.html { redirect_to destination, notice: "Combat was successfully created." }
         format.json { render :show, status: :created, location: @combat }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -84,7 +85,7 @@ class CombatsController < ApplicationController
       :status,
          
       combatants_in_combat_attributes:
-        [:working_initiative, :current_hp, :temporary_hp, :combatant_id, :id, :_destroy, :user_id, :combat_table_index]    
+        [:visual_initiative,:hidden_initiative, :current_hp, :temporary_hp, :combatant_id, :id, :_destroy, :user_id, :combat_table_index]    
     )
   end  
 end

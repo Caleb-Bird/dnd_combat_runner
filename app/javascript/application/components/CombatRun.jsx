@@ -10,6 +10,7 @@ import CombatTools from './CombatTools';
 import StatsViewer from './StatsViewer';
 
 
+
 const CombatRun = (props) => {
   const [combatState, dispatch] = useImmerReducer(reducerIndex, {
     selectedCombatantInCombat: null,
@@ -51,8 +52,9 @@ const CombatRun = (props) => {
             </div>  
           </div>
         </div>
-        <div>
-        </div>
+        <a href={`/combats/${props.combat.id}/setup`}>
+          <button className="btn btn-primary" >Combat Setup</button>
+        </a>
         <ToastContainer/>
       </div>
     </DispatchProvider>

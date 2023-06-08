@@ -86,6 +86,7 @@ class CombatantsController < ApplicationController
         :hp,
         :armor_class,
         :initiative,
+        :dexterity_score,
         :spell_dc,
         :strength_save,
         :dexterity_save,

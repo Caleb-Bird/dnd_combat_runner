@@ -21,7 +21,8 @@ class CombatantsInCombatController < ApplicationController
     # Only allow a list of trusted parameters through.
   def combatant_in_combat_params
     params.require(:combatant_in_combat).permit(
-      :working_initiative,
+      :visual_initiative,
+      :hidden_initiative,
       :current_hp,
       :temporary_hp,
       :combatant_id,

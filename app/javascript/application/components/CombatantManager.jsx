@@ -58,13 +58,13 @@ const CombatantManager = (props) => {
       </thead>
       <tbody>
       {[...props.combatants_in_combat]
-        .sort((cic1,cic2)=>(cic2.working_initiative-cic1.working_initiative))
+        .sort((cic1,cic2)=>(cic2.visual_initiative-cic1.visual_initiative))
         .map((combatant_in_combat, index) => (
           <tr className={calculateTableHightlight(combatant_in_combat)} key={index}>
             <td>{combatant_in_combat.combatant.name}</td>
             <td><input type="number" onChange={(e) => changeCurrentHp(e, combatant_in_combat)} defaultValue={combatant_in_combat.current_hp || null}></input></td>
             <td><input type="number" onChange={(e) => changeTemporaryHp(e, combatant_in_combat)} defaultValue={combatant_in_combat.temporary_hp || null}></input></td>
-            <td>{combatant_in_combat.working_initiative}</td>
+            <td>{combatant_in_combat.visual_initiative}</td>
             <td><button onClick={() => clickSelect(combatant_in_combat)} className="btn btn-outline-secondary" >Stats</button></td>
           </tr>
         ))}

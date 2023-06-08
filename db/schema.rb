@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_03_230605) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_08_191956) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,11 +31,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_03_230605) do
     t.string "description"
     t.integer "cr_or_level"
     t.integer "user_id"
+    t.integer "dexterity_score"
     t.index ["user_id"], name: "index_combatants_on_user_id"
   end
 
   create_table "combatants_in_combats", force: :cascade do |t|
-    t.integer "working_initiative"
+    t.integer "visual_initiative"
     t.integer "current_hp"
     t.integer "temporary_hp"
     t.datetime "created_at", null: false
@@ -43,6 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_03_230605) do
     t.bigint "combat_id"
     t.bigint "combatant_id"
     t.integer "user_id"
+    t.float "hidden_initiative"
     t.index ["combat_id"], name: "index_combatants_in_combats_on_combat_id"
     t.index ["combatant_id"], name: "index_combatants_in_combats_on_combatant_id"
     t.index ["user_id"], name: "index_combatants_in_combats_on_user_id"
@@ -55,7 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_03_230605) do
     t.string "description"
     t.integer "user_id"
     t.integer "status", default: 0
-    t.integer "current_initiative", default: 100
+    t.float "current_initiative", default: 100.0
     t.index ["user_id"], name: "index_combats_on_user_id"
   end
 

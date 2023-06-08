@@ -54,6 +54,7 @@
   </table><br>
 
   <div><%= form.submit "Submit", class: "btn btn-outline-secondary" %></div>
+  <%= hidden_field_tag :redirect_url, combats_path %>
 
   <%= render("shared/combatants_selector_modal", form: form) %>
 <% end %>
