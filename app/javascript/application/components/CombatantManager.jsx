@@ -6,27 +6,22 @@ const CombatantManager = (props) => {
   const dispatch = useContext(DispatchContext);
 
   const calculateTableHightlight = (combatant_in_combat)=>{
-    if (combatant_in_combat == props.initiativeCombatant){
+    if (combatant_in_combat.id == props.initiativeCombatant){
       return 'table-secondary'
     }
     if (!props.selectedCombatantInCombat){return '';}
-    if (combatant_in_combat.id == props.selectedCombatantInCombat.id) {
+    if (combatant_in_combat.id == props.selectedCombatantInCombat) {
       return 'table-primary'
     }
     return '';
   }
 
-  useEffect(() => {
-    console.log('CombatantManager UseEffect');
-    [...props.combatants_in_combat].map((combatant_in_combat, index) => (calculateTableHightlight(combatant_in_combat)))
-  }, [props.initiativeCombatant]);
-
   const clickSelect = (combatant_in_combat) => {
-    return dispatch({action: toggleSelect(combatant_in_combat), value: combatant_in_combat })
+    return dispatch({action: toggleSelect(combatant_in_combat), value: combatant_in_combat.id })
   }
 
   const toggleSelect = (combatant_in_combat) =>{
-    if (combatant_in_combat == props.selectedCombatantInCombat){
+    if (combatant_in_combat.id == props.selectedCombatantInCombat){
       return "unselectCombatantInCombat"
     } else {
       return "selectCombatantInCombat"
@@ -70,7 +65,7 @@ const CombatantManager = (props) => {
             <td><input type="number" onChange={(e) => changeCurrentHp(e, combatant_in_combat)} defaultValue={combatant_in_combat.current_hp || null}></input></td>
             <td><input type="number" onChange={(e) => changeTemporaryHp(e, combatant_in_combat)} defaultValue={combatant_in_combat.temporary_hp || null}></input></td>
             <td>{combatant_in_combat.working_initiative}</td>
-            <td><button onClick={() => clickSelect(combatant_in_combat)} >Stats</button></td>
+            <td><button onClick={() => clickSelect(combatant_in_combat)} className="btn btn-outline-secondary" >Stats</button></td>
           </tr>
         ))}
       </tbody>

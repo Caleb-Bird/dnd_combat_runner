@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 
 const StatsViewer = (props) => {
   const calculateShow = (props)=> {
-    if (!props.selectedCombatantInCombat == null){
-      return props.selectedCombatantInCombat
+    if (props.selectedCombatantInCombat !== null){
+      return props.combatants_in_combat.find((combatant_in_combat) => {
+        return combatant_in_combat.id == props.selectedCombatantInCombat
+      });
     }
     return props.combatants_in_combat.find((combatant_in_combat) => {
       return combatant_in_combat.id == props.initiativeCombatant
@@ -20,8 +22,8 @@ const StatsViewer = (props) => {
       </thead>
       <body>
       <tr>
-        <td>Maximum HP</td>
-        <td>{calculateShow(props)?.combatant?.maximum_hp}</td>
+        <td className="w-25">Maximum HP</td>
+        <td className="w-25">{calculateShow(props)?.combatant?.maximum_hp}</td>
       </tr>
       <tr>
         <td>Armor Class</td>

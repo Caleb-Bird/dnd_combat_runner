@@ -18,10 +18,9 @@ const CombatRun = (props) => {
   });
 
   useEffect(() => {
-    console.log('CombatRun UseEffect');
     dispatch({ action: "nextInitiative" })
   }, []);
-
+  
   return (
     <DispatchProvider value={dispatch}>
       <div className="container">
@@ -34,7 +33,7 @@ const CombatRun = (props) => {
                 initiativeCombatant = {combatState.initiativeCombatant}
               />
           </div>
-          <div className="col-sm-4">
+          <div className="col-lg-4">
             <div className="row row-cols-1">
               <div className="col">
                 <CombatTools

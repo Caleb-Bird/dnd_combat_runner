@@ -1,11 +1,15 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
+import DispatchContext from '../contexts/DispatchContext';
 
-const CombatTools = (props) => {
+const CombatTools = (props) => {  
+  const dispatch = useContext(DispatchContext);
   const nextTurn = () =>{
     return dispatch({
       action: "nextInitiative"
+      
     });
   } 
+  
 
   return (
     <>
