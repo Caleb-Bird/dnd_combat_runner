@@ -15,6 +15,9 @@ const CombatantManager = (props) => {
     if (combatant_in_combat.id == props.initiativeCombatant){
       return 'table-secondary'
     }
+    if(combatant_in_combat.current_hp <= 0 ){
+      return 'table-danger'
+    }
     if (!props.selectedCombatantInCombat){return '';}
     if (combatant_in_combat.id == props.selectedCombatantInCombat) {
       return 'table-primary'
