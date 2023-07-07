@@ -26,7 +26,7 @@ const CombatRun = (props) => {
     <DispatchProvider value={dispatch}>
       <div className="container">
         <div className="row">
-          <div className="col-sm-8">
+          <div className="col-sm-9">
         
               <CombatantManager 
                 combatants_in_combat={combatState.combatants_in_combat}
@@ -34,7 +34,7 @@ const CombatRun = (props) => {
                 initiativeCombatant = {combatState.initiativeCombatant}
               />
           </div>
-          <div className="col-lg-4">
+          <div className="col-lg-3">
             <div className="row row-cols-1">
               <div className="col">
                 <CombatTools
@@ -42,6 +42,7 @@ const CombatRun = (props) => {
                   combat={combatState.combat}
                 />
               </div>
+              <br></br><br></br>
               <div className="col">
                 <StatsViewer
                   combatants_in_combat={combatState.combatants_in_combat}
@@ -52,9 +53,6 @@ const CombatRun = (props) => {
             </div>  
           </div>
         </div>
-        <a href={`/combats/${props.combat.id}/setup`}>
-          <button className="btn btn-primary" >Combat Setup</button>
-        </a>
         <ToastContainer/>
       </div>
     </DispatchProvider>

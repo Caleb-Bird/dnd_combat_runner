@@ -14,6 +14,16 @@ const combatantInCombat = (draft, data) => {
         draft.combatants_in_combat[cic_index].temporary_hp = parseInt(data.value);
         updateCombatantInCombat(draft.combatants_in_combat[cic_index]);
         return true
+    case "damageCombatantInCombat":
+      const damageValue = parseInt(data.value);
+        if (draft.combatants_in_combat[cic_index].temporary_hp >= damageValue) {
+          draft.combatants_in_combat[cic_index].temporary_hp -= damageValue; 
+        } else { 
+          draft.combatants_in_combat[cic_index].current_hp -= damageValue - draft.combatants_in_combat[cic_index].temporary_hp ;
+          draft.combatants_in_combat[cic_index].temporary_hp = 0
+        }
+        updateCombatantInCombat(draft.combatants_in_combat[cic_index]);
+        return true
     default:
       return false
   }

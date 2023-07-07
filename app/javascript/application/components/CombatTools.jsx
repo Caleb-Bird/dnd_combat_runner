@@ -3,17 +3,20 @@ import DispatchContext from '../contexts/DispatchContext';
 
 const CombatTools = (props) => {  
   const dispatch = useContext(DispatchContext);
+
   const nextTurn = () =>{
     return dispatch({
       action: "nextInitiative"
-      
     });
   } 
   
-
   return (
     <>
     <button onClick={() => nextTurn()} className="btn btn-primary" >Next Turn</button>
+  <span> </span>
+    <a href={`/combats/${props.combat.id}/setup`}>
+      <button className="btn btn-primary" >Combat Setup</button>
+    </a>
     </>
   )
 }
