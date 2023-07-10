@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_08_211732) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_09_064627) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,6 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_211732) do
     t.bigint "combatant_id"
     t.integer "user_id"
     t.float "hidden_initiative"
+    t.integer "potential_damage"
     t.index ["combat_id"], name: "index_combatants_in_combats_on_combat_id"
     t.index ["combatant_id"], name: "index_combatants_in_combats_on_combatant_id"
     t.index ["user_id"], name: "index_combatants_in_combats_on_user_id"

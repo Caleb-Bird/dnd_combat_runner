@@ -25,6 +25,7 @@ class CombatantsInCombatController < ApplicationController
       :hidden_initiative,
       :current_hp,
       :temporary_hp,
+      :potential_damage,
       :combatant_id,
       :user_id
     )
